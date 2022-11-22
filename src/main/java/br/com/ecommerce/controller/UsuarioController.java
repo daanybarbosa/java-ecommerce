@@ -1,5 +1,6 @@
 package br.com.ecommerce.controller;
 
+import br.com.ecommerce.exceptions.EnderecoException;
 import br.com.ecommerce.exceptions.UsuarioException;
 import br.com.ecommerce.models.Usuario;
 import br.com.ecommerce.service.UsuarioService;
@@ -19,7 +20,7 @@ public class UsuarioController {
         try {
             Usuario usuarioDB = usuarioService.salvar(usuario);
             return ResponseEntity.ok(usuarioDB);
-        } catch (UsuarioException e) {
+        } catch (UsuarioException | EnderecoException e) {
             return ResponseEntity.badRequest().build();
         }
     }

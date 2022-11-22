@@ -1,6 +1,5 @@
 package br.com.ecommerce.controller;
 
-import br.com.ecommerce.exceptions.EnderecoException;
 import br.com.ecommerce.models.Endereco;
 import br.com.ecommerce.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +13,12 @@ public class EnderecoController {
     @Autowired
     private EnderecoService enderecoService;
 
-    /*@PostMapping("/salvarEndereco")
-    public Endereco salvarEndereco(Endereco endereco){
-        Endereco enderecoDB = enderecoService.salvar(endereco);
-        return enderecoDB;
-    } */
-
     @PostMapping("/salvarEndereco")
     public ResponseEntity<Endereco> salvarEndereco(@RequestBody Endereco endereco){
         try {
             Endereco enderecoDB = enderecoService.salvar(endereco);
             return ResponseEntity.ok(enderecoDB);
-        } catch (EnderecoException e) {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
     }
