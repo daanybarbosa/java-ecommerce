@@ -7,6 +7,8 @@ import br.com.ecommerce.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EnderecoService {
 
@@ -57,10 +59,9 @@ public class EnderecoService {
         return endCep;
     }
 
-    /*
-    public Endereco buscarPorEstadoECidade(String estado, String cidade){
-        Endereco endEstadoECidade = enderecoRepository.findByEstadoECidade(estado, cidade);
-        return endEstadoECidade;
-    } */
+    public List<Endereco> buscarPorEstadoECidade(String estado, String cidade){
+        List<Endereco> enderecos = enderecoRepository.findByEstadoAndCidade(estado, cidade);
+        return enderecos;
+    }
 
 }

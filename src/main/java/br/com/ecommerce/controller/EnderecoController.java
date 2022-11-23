@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/enderecos")
 public class EnderecoController {
@@ -13,7 +15,7 @@ public class EnderecoController {
     @Autowired
     private EnderecoService enderecoService;
 
-    @PostMapping("/salvarEndereco")
+    @PostMapping("/salvarEndereco") //localhost:8080/enderecos/salvarEndereco
     public ResponseEntity<Endereco> salvarEndereco(@RequestBody Endereco endereco){
         try {
             Endereco enderecoDB = enderecoService.salvar(endereco);
@@ -23,22 +25,17 @@ public class EnderecoController {
         }
     }
 
-    @GetMapping("/buscarCep")
+    @GetMapping("/buscarCep") //localhost:8080/enderecos/buscarCep?cep=11223345
     public Endereco buscarCep(@RequestParam(value = "cep", required = true) Integer cep){
         Endereco enderecoCep = enderecoService.buscarPorCep(cep);
         return enderecoCep;
     }
 
-    /*
-    @GetMapping("/buscarPorEstadoECidade/{estado}/{cidade}")
-    public Endereco buscarPorEstadoECidade(@RequestParam(value = "estado", required = false) String estado, @RequestParam(value = "cidade", required = false) String cidade){
-        Endereco endEstadoECidade = enderecoService.buscarPorEstadoECidade(estado, cidade);
-        return endEstadoECidade;
+    @GetMapping("/buscarPorEstadoECidade") //localhost:8080/enderecos/buscarPorEstadoECidade?estado=sp&cidade=sao paulo
+    public List<Endereco> buscarPorEstadoECidade(@RequestParam(value = "estado", required = false) String estado,
+                                                 @RequestParam(value = "cidade", required = false) String cidade){
+        List<Endereco> enderecos = enderecoService.buscarPorEstadoECidade(estado, cidade);
+        return enderecos;
     }
 
-    @GetMapping("/buscarPorEstadoECidade/{estado}/{cidade}")
-    public Endereco buscarPorEstadoECidade(@PathVariable String estado, @PathVariable String cidade){
-        Endereco endEstadoECidade = enderecoService.buscarPorEstadoECidade(estado, cidade);
-        return endEstadoECidade;
-    }*/
 }

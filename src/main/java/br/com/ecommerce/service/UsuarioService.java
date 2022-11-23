@@ -24,6 +24,7 @@ public class UsuarioService {
     private EnderecoService enderecoService;
 
     public Usuario salvar(Usuario usuario) throws UsuarioException, EnderecoException {
+        validaUsuario(usuario);
         Endereco enderecoDB = enderecoService.salvar(usuario.getEndereco());
         usuario.setEndereco(enderecoDB);
 
