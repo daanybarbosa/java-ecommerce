@@ -3,6 +3,7 @@ package br.com.ecommerce.service;
 import br.com.ecommerce.exceptions.EnderecoException;
 import br.com.ecommerce.exceptions.UsuarioException;
 import br.com.ecommerce.models.Endereco;
+import br.com.ecommerce.models.Sessao;
 import br.com.ecommerce.models.Usuario;
 import br.com.ecommerce.repository.EnderecoRepository;
 import br.com.ecommerce.repository.UsuarioRepository;
@@ -37,31 +38,31 @@ public class UsuarioService {
             throw new UsuarioException("Nome precisa ser preenchido");
         }
 
-        if (usuario.getSobrenome() == null | usuario.getSobrenome().length() <= 3){
+        if (usuario.getSobrenome() == null | usuario.getSobrenome().length() < 3){
             throw new UsuarioException("Sobrenome precisa ter no minimo 3 caracteres");
         }
 
-        if (usuario.getCpf() == null | usuario.getCpf().length() <= 3){
-            throw new UsuarioException("CPF precisa ter no minimo 3 caracteres");
+        if (usuario.getCpf() == null | usuario.getCpf().length() < 8){
+            throw new UsuarioException("CPF precisa ter no minimo 8 caracteres");
         }
 
-        if (usuario.getTelefone() == null | usuario.getTelefone().toString().length() <= 3){
-            throw new UsuarioException("Telefone precisa ter no minimo 3 caracteres");
+        if (usuario.getTelefone() == null | usuario.getTelefone().toString().length() < 9){
+            throw new UsuarioException("Telefone precisa ter no minimo 9 caracteres");
         }
 
         if (usuario.getDataNascimento() == null){
             throw new UsuarioException("Data de nascimento não pode ser nulo");
         }
 
-        if (usuario.getSexo() == null | usuario.getSexo().length() <= 3){
-            throw new UsuarioException("Sexo precisa ter no minimo 3 caracteres");
+        if (usuario.getSexo() == null){
+            throw new UsuarioException("Sexo precisa ser preenchido");
         }
 
-        if (usuario.getEmail() == null | usuario.getEmail().length() <= 3){
+        if (usuario.getEmail() == null | usuario.getEmail().length() < 3){
             throw new UsuarioException("Email precisa ter no minimo 3 caracteres");
         }
 
-        if (usuario.getSenha() == null | usuario.getSenha().length() <= 3) {
+        if (usuario.getSenha() == null | usuario.getSenha().length() < 3) {
             throw new UsuarioException("Senha precisa ter no minimo 3 caracteres");
         }
     }
@@ -71,9 +72,8 @@ public class UsuarioService {
         return usuarioDB;
     }
 
-    public Usuario buscarUsuarioPorEmail(String email){
-        Usuario usuarioEmail = usuarioRepository.findByEmail(email);
+    public Usuario buscarUsuarioPorEmailESenha(String email, String senha){
+        Usuario usuarioEmail = usuarioRepository.findByEmailAndSenha(email, senha);
         return  usuarioEmail;
     }
-
 }

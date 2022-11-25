@@ -28,7 +28,6 @@ public class ProdutoService {
         return produtoName;
     }
 
-    //id e a qtde
     public Produto atualizarQtde(Long id, Integer qtdeProduto) throws ProdutoException {
 
         Optional<Produto> produtoOpt = buscarProdutoPorId(id);

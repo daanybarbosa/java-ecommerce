@@ -32,7 +32,7 @@ public class ProdutoController {
         return produtoName;
     }
 
-    @PutMapping("/atualizarQtde")
+    @PutMapping("/atualizarQtde") //localhost:8080/produtos/atualizarQtde?id=1&qtdeProduto=25
     public ResponseEntity<Produto> atualizarQtdeProduto(@RequestParam(value = "id", required = true) Long id,
                                                         @RequestParam(value = "qtdeProduto", required = false) Integer qtdeProduto){
         try {

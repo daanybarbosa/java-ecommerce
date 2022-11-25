@@ -25,7 +25,7 @@ public class EnderecoService {
 
     public void validaEndereco(Endereco endereco) throws EnderecoException {
 
-        if (endereco.getCep() == null | endereco.getCep().toString().length() < 8){
+        if (endereco.getCep() == null | endereco.getCep().toString().length() <= 7){
             throw new EnderecoException("CEP precisa ter 8 caracteres");
         }
 

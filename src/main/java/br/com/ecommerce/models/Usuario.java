@@ -24,10 +24,10 @@ public class Usuario implements Serializable {
     @Column(length = 200, nullable = false)
     private String sobrenome;
 
-    @Column(length = 200, nullable = false)
+    @Column(length = 200, nullable = false, unique = true)
     private String cpf;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private Integer telefone;
 
     @Column(nullable = false)
@@ -36,7 +36,7 @@ public class Usuario implements Serializable {
     @Column(length = 200, nullable = false)
     private String sexo;
 
-    @Column(length = 200, nullable = false)
+    @Column(length = 200, nullable = false, unique = true)
     private String email;
 
     @Column(length = 200, nullable = false)
@@ -46,7 +46,7 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "endereco", referencedColumnName = "cep")
     private Endereco endereco;
 
-    @OneToMany(targetEntity=Pedido.class, fetch=FetchType.EAGER)
+    @OneToMany
     @JoinColumn(name = "pedido", referencedColumnName = "id")
     private List<Pedido> pedidos;
 

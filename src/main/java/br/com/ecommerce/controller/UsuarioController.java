@@ -32,17 +32,10 @@ public class UsuarioController {
     }
 
     @GetMapping("/email") //localhost:8080/usuarios/email?email=daniele@teste.com.br
-    public Usuario buscarUsuarioPorEmail(@RequestParam(value = "email", required = true) String email){
-        Usuario usuarioEmail = usuarioService.buscarUsuarioPorEmail(email);
+    public Usuario buscarUsuarioPorEmailESenha(
+            @RequestParam(value = "email", required = true) String email,
+            @RequestParam(value = "senha", required = true) String senha){
+        Usuario usuarioEmail = usuarioService.buscarUsuarioPorEmailESenha(email, senha);
         return usuarioEmail;
     }
-
-
-
-
-
-
-
-
-    
 }
