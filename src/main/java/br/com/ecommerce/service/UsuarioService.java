@@ -3,7 +3,6 @@ package br.com.ecommerce.service;
 import br.com.ecommerce.exceptions.EnderecoException;
 import br.com.ecommerce.exceptions.UsuarioException;
 import br.com.ecommerce.models.Endereco;
-import br.com.ecommerce.models.Sessao;
 import br.com.ecommerce.models.Usuario;
 import br.com.ecommerce.repository.EnderecoRepository;
 import br.com.ecommerce.repository.UsuarioRepository;

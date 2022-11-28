@@ -3,8 +3,10 @@ package br.com.ecommerce.controller;
 import br.com.ecommerce.exceptions.EnderecoException;
 import br.com.ecommerce.exceptions.UsuarioException;
 import br.com.ecommerce.models.Usuario;
+import br.com.ecommerce.service.SessaoService;
 import br.com.ecommerce.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,9 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private SessaoService sessaoService;
 
     @PostMapping("/salvar")
     public ResponseEntity<Usuario> salvarUsuario(@RequestBody Usuario usuario){
@@ -26,16 +31,30 @@ public class UsuarioController {
     }
 
     @GetMapping("/id") //localhost:8080/usuarios/id?id=4
-    public Usuario buscarUsuarioPorId(@RequestParam(value = "id", required = true) Long id){
-        Usuario usuario = usuarioService.buscarUsuarioPorId(id).orElseGet(null);
-        return usuario;
+    public ResponseEntity buscarUsuarioPorId(@RequestParam(value = "id", required = true) Long id, @RequestHeader String token){
+        try {
+            if (!sessaoService.sessaoValida(token)) {
+                throw new UsuarioException("Sessao invalida");
+            }
+            Usuario usuario = usuarioService.buscarUsuarioPorId(id).orElseGet(null);
+            return ResponseEntity.ok(usuario);
+        } catch (UsuarioException erro){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
-    @GetMapping("/email") //localhost:8080/usuarios/email?email=daniele@teste.com.br
-    public Usuario buscarUsuarioPorEmailESenha(
-            @RequestParam(value = "email", required = true) String email,
-            @RequestParam(value = "senha", required = true) String senha){
-        Usuario usuarioEmail = usuarioService.buscarUsuarioPorEmailESenha(email, senha);
-        return usuarioEmail;
+    @GetMapping("/email") //localhost:8080/usuarios/email?email=dani@teste.com.br&senha=12345
+    public ResponseEntity buscarUsuarioPorEmailESenha(@RequestParam(value = "email", required = true) String email,
+                                                      @RequestParam(value = "senha", required = true) String senha,
+                                                      @RequestHeader String token){
+        try {
+            if (!sessaoService.sessaoValida(token)){
+                throw new UsuarioException("Sessao invalida");
+            }
+            Usuario usuarioEmail = usuarioService.buscarUsuarioPorEmailESenha(email, senha);
+            return ResponseEntity.ok(usuarioEmail);
+        } catch (UsuarioException erro){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 }

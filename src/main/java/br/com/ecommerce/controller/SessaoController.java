@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/sessao")
 public class SessaoController {
 
     @Autowired
@@ -29,5 +29,11 @@ public class SessaoController {
         } catch (SessaoException e){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+    }
+
+    @GetMapping("/validarToken") //localhost:8080/sessao/validarToken?token=c360a158-bf56-45e5-a374-83413d809ce0
+    public Sessao validarPorToken(@RequestParam(value = "token", required = true) String token){
+        Sessao sessao = sessaoService.consultarSessaoToken(token);
+        return sessao;
     }
 }

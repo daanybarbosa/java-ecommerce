@@ -29,7 +29,8 @@
 - [ ] Exibir valor total
 
 **Sessão - Login**
-
+- [X] Criação do login via email, senha e token
+- [ ] Consultar sessão por token
 
 ### Links úteis
 - https://dzone.com/articles/bounty-spring-boot-and-postgresql-database

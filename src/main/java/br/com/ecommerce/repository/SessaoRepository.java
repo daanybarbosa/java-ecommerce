@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface SessaoRepository extends JpaRepository<Sessao, Long> {
 
     Sessao findByUsuarioId(Long id);
+    Sessao findByToken(String token);
 }

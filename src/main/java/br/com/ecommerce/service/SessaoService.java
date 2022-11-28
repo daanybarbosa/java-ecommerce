@@ -27,7 +27,7 @@ public class SessaoService {
         if (usuario == null) throw new SessaoException("Usuário não existe!");
 
         // se usuario existir consultar sessao
-        Sessao sessao = consultarSessao(usuario);
+        Sessao sessao = consultarSessaoId(usuario);
 
         // se sessao exitir, deletar sessao e recriar
         if (sessao != null){
@@ -44,10 +44,21 @@ public class SessaoService {
         return sessaoRepository.save(sessao);
     }
 
-    public Sessao consultarSessao(Usuario usuario){
+    public Sessao consultarSessaoId(Usuario usuario){
         return sessaoRepository.findByUsuarioId(usuario.getId());
     }
 
     //consultar sessao por token
-    
+    public Sessao consultarSessaoToken(String token){
+        return sessaoRepository.findByToken(token);
+    }
+
+    public boolean sessaoValida(String token){
+        Sessao sessao = consultarSessaoToken(token);
+        if (sessao != null){
+            return true;
+        }
+        return false;
+    }
+
 }
