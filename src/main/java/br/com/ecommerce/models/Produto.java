@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "produto_sistema")
@@ -30,7 +31,7 @@ public class Produto {
     private Categoria categoria;
 
     @Column(name = "valor_unitario", length = 200, nullable = false)
-    private Double valorUnitario;
+    private BigDecimal valorUnitario;
 
     @Column(name = "quantidade_do_produto", nullable = false)
     private Integer qtdeProduto;

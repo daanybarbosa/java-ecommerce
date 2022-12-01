@@ -75,4 +75,9 @@ public class UsuarioService {
         Usuario usuarioEmail = usuarioRepository.findByEmailAndSenha(email, senha);
         return  usuarioEmail;
     }
+
+    public Usuario buscarEndereco(Integer cep){
+        Usuario enderecoCep = usuarioRepository.findByEndereco(cep);
+        return enderecoCep;
+    }
 }

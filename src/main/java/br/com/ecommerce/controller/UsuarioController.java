@@ -51,8 +51,21 @@ public class UsuarioController {
             if (!sessaoService.sessaoValida(token)){
                 throw new UsuarioException("Sessao invalida");
             }
-            Usuario usuarioEmail = usuarioService.buscarUsuarioPorEmailESenha(email, senha);
-            return ResponseEntity.ok(usuarioEmail);
+            Usuario emailESenha = usuarioService.buscarUsuarioPorEmailESenha(email, senha);
+            return ResponseEntity.ok(emailESenha);
+        } catch (UsuarioException erro){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
+    @GetMapping("/endereco")
+    public ResponseEntity buscarEnderecoUsuario(@RequestParam(value = "cep", required = true) Integer cep, @RequestHeader String token){
+        try {
+            if (!sessaoService.sessaoValida(token)){
+                throw new UsuarioException("Sessao invalida");
+            }
+            Usuario endereco = usuarioService.buscarEndereco(cep);
+            return ResponseEntity.ok(endereco);
         } catch (UsuarioException erro){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
